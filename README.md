@@ -7,7 +7,7 @@ An experiement with Cloudflare Workers + KV to create a temporary bin.
 - 24hr max TTL
 - assigned `binID` is randomly generated 5 character string
   - excluded commonly mistaken characters (`0oO1LlIi`...)
-- Whatever `Content-Type` is sent - whatever `Content-Type` is returned
+- `Content-Type` sent - is the `Content-Type` returned
 
 ## API Docs (also at /api)
 ```json
