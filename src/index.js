@@ -46,15 +46,14 @@ const redirectResponse = (url) => new Response(null, {
 })
 
 const parseBody = async(request) => { // parse body
-  const bodyBuffer = await request.arrayBuffer()
-  const body = new TextDecoder('utf-8').decode(bodyBuffer)
+  const body = await request.arrayBuffer()
   const type = request.headers.get('Content-Type')
   return({body, type})
 }
 
 
 const getValue = async (ID) => { 
-  const {value, metadata} = await NAMESPACE.getWithMetadata(ID)
+  const {value, metadata} = await NAMESPACE.getWithMetadata(ID, {type: "arrayBuffer"})
   return (value === null)
     ? new Response(null, { status: 404 })
     : typeResponse(value, metadata.type)
@@ -64,13 +63,13 @@ const deleteValue = async (ID) => {
   return new Response(null, { status: 200 })
 }
 const setValue = async (ID, value, type) => {
-  const length = value.length
+  const length = value.byteLength
   if (length >= MAX_BIN_SIZE) return false
   // if less than 100b, store for 24hr, else store according to size, down to 1hr
   const expirtaionTime = (length <= 100)
     ? EXPIRATION
     : Math.max(EXPIRATION*(1-(length/MAX_BIN_SIZE)), 3600)
-  await NAMESPACE.put(ID, value, { expirationTtl: expirtaionTime, metadata: { type }})
+  await NAMESPACE.put(ID, value, { expirationTtl: expirtaionTime, metadata: { type: type }})
   return true
 }
 const isValueEmpty = async (ID) => { 
@@ -108,7 +107,7 @@ const handleBin = async (request, pathname) => {
   else if (method === 'POST' || method === 'PUT') {
     const {body, type} = await parseBody(request)
     const result = await setValue(binName, body, type)
-    return (result) ? typeResponse(body, type) : bodyTooLarge()
+    return (result) ? textResponse(`set with type: ${type}`) : bodyTooLarge()
   } else return new Response('see /api', { status: 405 })
 }
 
