@@ -1,0 +1,13 @@
+name = "bin"
+type = "webpack"
+account_id = "d5ccf1d783709bbdc23fc29786f38736"
+workers_dev = true
+kv_namespaces = [
+  { binding = "NAMESPACE", id="cd82115a29a24e4b97df6c9c48325d01" }
+]
+compatibility_date = "2021-09-30"
+
+[build]
+command = "npm install && npm run build"
+[build.upload]
+format = "service-worker"

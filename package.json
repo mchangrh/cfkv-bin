@@ -1,0 +1,23 @@
+{
+  "name": "cfkv-bin",
+  "version": "0.0.1",
+  "description": "bin with CF Workers + KV",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "uglifyjs src/index.js -o dist/index.js -c -m",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mchangrh/cfkv-bin.git"
+  },
+  "author": "Michael Chang <michael@mchang.name>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mchangrh/cfkv-bin/issues"
+  },
+  "homepage": "https://github.com/mchangrh/cfkv-bin#readme",
+  "dependencies": {
+    "uglify-js": "^3.14.3"
+  }
+}
