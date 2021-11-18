@@ -55,6 +55,7 @@
   "/": "github",
   "/ping":"pong",
   "/version": "commit hash",
+  "upload": "mchangrh.github.io/cfkv-bin"
   "/api": "this"
 }
 ```
