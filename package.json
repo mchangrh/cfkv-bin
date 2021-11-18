@@ -4,7 +4,8 @@
   "description": "bin with CF Workers + KV",
   "main": "dist/index.js",
   "scripts": {
-    "build": "uglifyjs src/index.js -o dist/index.js -c -m",
+    "build": "uglifyjs worker/consts.js worker/responseHelpers.js worker/binStorage.js worker/urlStorage.js worker/index.js -o dist/index.js -c -m",
+    "build:dev": "uglifyjs worker/consts.js worker/responseHelpers.js worker/binStorage.js worker/urlStorage.js worker/index.js -o dist/dev.js -b",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

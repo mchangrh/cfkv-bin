@@ -3,11 +3,14 @@ type = "javascript"
 account_id = "d5ccf1d783709bbdc23fc29786f38736"
 workers_dev = true
 kv_namespaces = [
-  { binding = "NAMESPACE", id="cd82115a29a24e4b97df6c9c48325d01" }
+  { binding = "BIN_BIN", id="05129c34c7f84cfb8ad000432c8f4610" },
+  { binding = "URL_BIN", id="53a3fa54cb624860af9d366c8b09a8c7" },
+  { binding = "AUTH", id="56bf6df498f14d8ca07d26fb25c1722c" }
+
 ]
 compatibility_date = "2021-09-30"
 
 [build]
-command = "npm install && npm run build"
+command = "npm run build"
 [build.upload]
 format = "service-worker"

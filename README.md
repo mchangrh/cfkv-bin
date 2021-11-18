@@ -1,13 +1,12 @@
-# Temporary *bin
-*bin with Cloudflare Workers + KV
-
-An experiement with Cloudflare Workers + KV to create a temporary bin.
+# Temporary *bin & URL Shortener
+*bin and URL Shortener with Cloudflare Workers + KV
 
 ## Specifics
 - 24hr max TTL
 - assigned `binID` is randomly generated 5 character string
-  - excluded commonly mistaken characters (`0oO1LlIi`...)
-- `Content-Type` sent - is the `Content-Type` returned
+  - exclude commonly mistaken characters (`0oO1LlIi`...)
+- `Content-Type` sent is the `Content-Type` returned
+- /u endpoint requires authentication with `?auth=<token>`
 
 ## API Docs (also at /api)
 ```json
@@ -29,13 +28,29 @@ An experiement with Cloudflare Workers + KV to create a temporary bin.
       }
     }
   },
+  "/b/:binID/:method": {
+    "description": "Specify method in path instead",
+    "methods": "see /b/:binID methods"
+  },
   "/b": {
     "methods": {
-      "POST": {
+      "POST/PUT": {
         "description": "Create a new bin",
         "response": "binID"
       }
     }
+  },
+  "/u/:binID": {
+    "auth": "userID set in auth parameter",
+    "description": "see /b/:binID",
+  },
+  "/u/:binID/:method": {
+    "auth": "userID set in auth parameter",
+    "description": "see /b/:binID/:method",
+  },
+  "/u": {
+    "auth": "userID set in auth parameter",
+    "description": "See /b",
   },
   "/": "github",
   "/ping":"pong",

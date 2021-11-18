@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <style>
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <h3>URL Redirect</h3>
+    Destination: <input id="dest" placeholder="https://google.com">
+    <br>
+    Auth: <input id="userid">
+    <br>
+    <button onclick="url()">Set Redirect</button>
+    <h3>Text Upload</h3>
+    Content-Type: <input id="content_type" value="text/plain">
+    <textarea id="upload_body"></textarea>
+    <button onclick="upload()">Upload</button>
+    <h3>Result</h3>
+    Result Link: <a id="binlink">null</a>
+    <script>
+      const BINURL = "https://bin.mchang.xyz"
+      async function upload() {
+        const postData = document.getElementById("upload_body").value
+        const contentType = document.getElementById("content_type").value
+        await fetch(BINURL+"/b", {
+          method: "POST",
+          body: postData,
+          headers: { "Content-Type": contentType }
+        }).then(resp => {
+          return resp.text()
+        }).then(binid => {
+          const link = `${BINURL}/b/${binid}`
+          document.getElementById("binlink").href = link
+          document.getElementById("binlink").innerHTML = link
+        })
+      }
+      async function url() {
+        const dest = document.getElementById("dest").value
+        const userid = document.getElementById("userid").value
+        await fetch(`${BINURL}/u?auth=${userid}`, {
+          method: "POST",
+          body: dest,
+        }).then(resp => {
+          return (resp.status == 200) ? resp.text() : "error" 
+        }).then(binid => {
+          const link = `${BINURL}/u/${binid}`
+          document.getElementById("binlink").href = link
+          document.getElementById("binlink").innerHTML = link
+        })
+      }
+    </script>
+  </body>
+</html>
