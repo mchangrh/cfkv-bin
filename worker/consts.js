@@ -32,7 +32,7 @@ const API_DOCS = {
     'auth': 'userID set in auth parameter',
     'description': 'See /b',
   },
-  '/': 'github', '/ping': 'pong', '/upload': 'mchangrh.github.io/cfkv-bin', '/api': 'this',
+  '/': 'github', '/ping': 'pong', '/site': 'mchangrh.github.io/cfkv-bin', '/api': 'this',
 }
 // const EXPIRATION = 24*60*60 // 1 day
 // const MAX_BIN_SIZE = 100000 // 100kb

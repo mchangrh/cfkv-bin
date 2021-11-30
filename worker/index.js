@@ -70,7 +70,7 @@ const handleRequest = async (request) => {
   else if (pathname === '/api') return typeResponse(JSON.stringify(API_DOCS, null, 4), 'application/json')
   else if (pathname === '/ping') return textResponse('pong') 
   else if (pathname === '/version') return textResponse(VERSION.substring(0,7))
-  else if (pathname === '/upload') return redirectResponse('https://mchangrh.github.io/cfkv-bin/')
+  else if (pathname === '/site') return redirectResponse('https://mchangrh.github.io/cfkv-bin/')
   else return new Response(null, { status: 404 })
 }
 
