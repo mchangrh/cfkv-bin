@@ -6,16 +6,16 @@
     </style>
   </head>
   <body>
+    <h3>Text Upload</h3>
+    Content-Type: <input id="content_type" value="text/plain">
+    <textarea id="upload_body"></textarea>
+    <button onclick="upload()">Upload</button>
     <h3>URL Redirect</h3>
     Destination: <input id="dest" placeholder="https://google.com">
     <br>
     Auth: <input id="userid">
     <br>
     <button onclick="url()">Set Redirect</button>
-    <h3>Text Upload</h3>
-    Content-Type: <input id="content_type" value="text/plain">
-    <textarea id="upload_body"></textarea>
-    <button onclick="upload()">Upload</button>
     <h3>Result</h3>
     Result Link: <a id="binlink">null</a>
     <script>

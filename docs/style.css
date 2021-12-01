@@ -1,6 +1,5 @@
 body {
   background: #111;
-  color: #ddd;
   font-size: 16px;
   font-family: monospace;
 }
@@ -14,6 +13,6 @@ input, button, textarea {
   color: inherit;
   border: 1px solid #ccc;
 }
-a {
+a, body {
   color: #ddd;
 }
