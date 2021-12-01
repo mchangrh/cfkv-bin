@@ -62,15 +62,15 @@ const handleRequest = async (request) => {
   // handle preflight
   if (request.method === 'OPTIONS') return new Response(null, { headers: { ...stdheaders }})
   // send url to handler
-  if (pathname.startsWith('/u')) return await handleURL(request, pathname)
+  if (pathname.startsWith('/u/')) return await handleURL(request, pathname)
   // send bin to handler
-  if (pathname.startsWith('/b')) return await handleBin(request, pathname)
+  if (pathname.startsWith('/b/')) return await handleBin(request, pathname)
   // static endpoints
   else if (pathname === '/') return redirectResponse('https://github.com/mchangrh/cfkv-bin#readme')
   else if (pathname === '/api') return typeResponse(JSON.stringify(API_DOCS, null, 4), 'application/json')
   else if (pathname === '/ping') return textResponse('pong') 
   else if (pathname === '/version') return textResponse(VERSION.substring(0,7))
-  else if (pathname === '/site') return redirectResponse('https://mchangrh.github.io/cfkv-bin/')
+  else if (pathname === '/upload') return redirectResponse('https://mchangrh.github.io/cfkv-bin/')
   else return new Response(null, { status: 404 })
 }
 
