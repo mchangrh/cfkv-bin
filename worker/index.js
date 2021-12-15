@@ -57,8 +57,7 @@ const handleURL = async (request, pathname) => {
 
 // Process all requests to the worker
 const handleRequest = async (request) => {
-  const url = new URL(request.url)
-  const pathname = url.pathname
+  const { pathname } = new URL(request.url)
   // handle preflight
   if (request.method === 'OPTIONS') return new Response(null, { headers: { ...stdheaders }})
   // static endpoints
