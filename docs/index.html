@@ -13,8 +13,6 @@
     <h3>URL Redirect</h3>
     Destination: <input id="dest" placeholder="https://google.com">
     <br>
-    Auth: <input id="userid">
-    <br>
     <button onclick="url()">Set Redirect</button>
     <h3>Result</h3>
     Result Link: <a id="binlink">null</a>
@@ -37,8 +35,7 @@
       }
       async function url() {
         const dest = document.getElementById("dest").value
-        const userid = document.getElementById("userid").value
-        await fetch(`${BINURL}/u?auth=${userid}`, {
+        await fetch(`${BINURL}/u`, {
           method: "POST",
           body: dest,
         }).then(resp => {

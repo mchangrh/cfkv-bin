@@ -1,10 +1,3 @@
-const urlCheckAuth = async (request) => {
-  const urlAuthUsers = await AUTH.get("url", { type: "json"})
-  const { searchParams } = new URL(request.url)
-  const currentUser = searchParams.get("auth")
-  return (currentUser && urlAuthUsers.users.includes(currentUser));
-}
-
 const urlGetValue = async (ID) => { 
   const value = await URL_BIN.get(ID)
   return (value === null)

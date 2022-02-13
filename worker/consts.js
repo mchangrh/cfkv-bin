@@ -21,15 +21,12 @@ const API_DOCS = {
     }}
   },
   '/u/:binID': {
-    'auth': 'userID set in auth parameter',
     'description': 'see /b/:binID',
   },
   '/u/:binID/:method': {
-    'auth': 'userID set in auth parameter',
     'description': 'See /b/:binID/:method',
   },
   '/u': {
-    'auth': 'userID set in auth parameter',
     'description': 'See /b',
   },
   '/': 'github', '/ping': 'pong', '/upload': 'mchangrh.github.io/cfkv-bin', '/api': 'this',

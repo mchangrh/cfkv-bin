@@ -28,10 +28,8 @@ const handleBin = async (request, pathname) => {
 }
 
 const handleURL = async (request, pathname) => {
-  const authResult = await urlCheckAuth(request)
   let method = request.method.toLowerCase()
   if ((method === 'post' || method === 'put') && pathname === '/u') {
-    if (!authResult) return new Response(null, { status: 401 })
     const body = await parseBodyText(request)
     return await urlCreateBin(body)
   }
@@ -43,12 +41,10 @@ const handleURL = async (request, pathname) => {
   if (method === 'get') return await urlGetValue(binName)
   // delete bin
   else if (method === 'delete') {
-    if (!authResult) return new Response(null, { status: 401 })
     return await urlDeleteValue(binName)
   }
   // update bin
   else if (method === 'post' || method === 'put') {
-    if (!authResult) return new Response(null, { status: 401 })
     const body = await parseBodyText(request)
     const err = await urlSetValue(binName, body)
     return (err) ? bodyError(err) : textResponse(`set to ${body}`)

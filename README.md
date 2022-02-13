@@ -6,7 +6,6 @@
 - assigned `binID` is randomly generated 5 character string
   - exclude commonly mistaken characters (`0oO1LlIi`...)
 - `Content-Type` sent is the `Content-Type` returned
-- /u endpoint requires authentication with `?auth=<token>`
 
 ## API Docs (also at /api)
 ```json
@@ -41,15 +40,12 @@
     }
   },
   "/u/:binID": {
-    "auth": "userID set in auth parameter",
     "description": "see /b/:binID",
   },
   "/u/:binID/:method": {
-    "auth": "userID set in auth parameter",
     "description": "see /b/:binID/:method",
   },
   "/u": {
-    "auth": "userID set in auth parameter",
     "description": "See /b",
   },
   "/": "github",
