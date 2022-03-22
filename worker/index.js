@@ -9,20 +9,20 @@ const handleBin = async (request, pathname) => {
   let method = request.method.toLowerCase()
   if ((method === 'post' || method === 'put') && pathname === '/b') {
     const {body, type} = await parseBody(request)
-    return await binCreateBin(body, type)
+    return await bin.create(body, type)
   }
   const pathSplit = pathname.split("/")
   const binName = pathSplit[2] ?? ''
   if (binName.length == 0 ) return new Response('see /api', { status: 405 })
   if (pathSplit[3] ?? '') method = pathSplit[3]
   // get bin
-  if (method === 'get') return await binGetValue(binName)
+  if (method === 'get') return await bin.get(binName)
   // delete bin
-  else if (method === 'delete') return await binDeleteValue(binName)
+  else if (method === 'delete') return await bin.delete(binName)
   // update bin
   else if (method === 'post' || method === 'put') {
     const {body, type} = await parseBody(request)
-    const err = await binSetValue(binName, body)
+    const err = await bin.set(binName, body)
     return (err) ? bodyError(err) : textResponse(`set with type: ${type}`)
   } else return new Response('see /api', { status: 405 })
 }
@@ -31,22 +31,22 @@ const handleURL = async (request, pathname) => {
   let method = request.method.toLowerCase()
   if ((method === 'post' || method === 'put') && pathname === '/u') {
     const body = await parseBodyText(request)
-    return await urlCreateBin(body)
+    return await url.create(body)
   }
   const pathSplit = pathname.split("/")
   const binName = pathSplit[2] ?? ''
   if (binName.length == 0 ) return new Response('see /api', { status: 405 })
   if (pathSplit[3] ?? '') method = pathSplit[3]
   // get bin
-  if (method === 'get') return await urlGetValue(binName)
+  if (method === 'get') return await url.get(binName)
   // delete bin
   else if (method === 'delete') {
-    return await urlDeleteValue(binName)
+    return await url.delete(binName)
   }
   // update bin
   else if (method === 'post' || method === 'put') {
     const body = await parseBodyText(request)
-    const err = await urlSetValue(binName, body)
+    const err = await url.set(binName, body)
     return (err) ? bodyError(err) : textResponse(`set to ${body}`)
   } else return new Response('see /api', { status: 405 })
 }
@@ -72,7 +72,8 @@ const handleRequest = async (request) => {
 
 // Register the worker listener
 addEventListener('fetch', event => {
-  try { return event.respondWith(handleRequest(event.request))
+  try {
+    return event.respondWith(handleRequest(event.request))
   } catch (err) {
     console.log(err)
     throw err

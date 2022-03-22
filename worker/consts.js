@@ -31,9 +31,9 @@ const API_DOCS = {
   },
   '/': 'github', '/ping': 'pong', '/upload': 'mchangrh.github.io/cfkv-bin', '/api': 'this',
 }
-// const EXPIRATION = 24*60*60 // 1 day
-// const MAX_BIN_SIZE = 100000 // 100kb
 const SYMBOLS = '23456789abcdefhjkprstxyzABCDEFGHJKMNPQRSTXYZ'
+const MAX_BIN_SIZE = 1000000 // 1MB
+const MAX_EXPIRY = 86400 // 24hr
 
 // response helpers
 const stdheaders = {

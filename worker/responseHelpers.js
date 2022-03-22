@@ -11,7 +11,6 @@ const parseBody = async(request) => { // parse body
   })
 }
 
-const parseBodyText = async(request) => { // parse body
-  return new TextDecoder('utf-8')
+const parseBodyText = async(request) => // parse body
+  new TextDecoder('utf-8')
     .decode(await request.arrayBuffer())
-}

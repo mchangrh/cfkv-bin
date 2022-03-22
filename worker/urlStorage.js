@@ -13,19 +13,21 @@ const urlDeleteValue = async (ID) => {
 const urlSetValue = async (ID, value) => {
   const length = value.byteLength
   if (length === 0 ) return "empty body"
-  await URL_BIN.put(ID, value, { expirationTtl: EXPIRATION })
+  await URL_BIN.put(ID, value, { expirationTtl: MAX_EXPIRY })
   return false
-}
-
-const urlIsValueEmpty = async (ID) => { 
-  const value = await urlGetValue(ID)
-  return value === null
 }
 
 const urlCreateBin = async (body) => {
   let binID = genID() // get random ID
-  const currentBin = await urlIsValueEmpty(binID) // check if bin is empty
-  if (!currentBin) binID = genID()
+  const currentBin = await urlGetValue(binID) // check if bin is empty
+  if (currentBin !== null) binID = genID()
   const err = await urlSetValue(binID, body) // put into bin
   return (err) ? bodyError(err) : textResponse(binID)
+}
+
+const url = {
+  get: urlGetValue,
+  delete: urlDeleteValue,
+  set: urlSetValue,
+  create: urlCreateBin
 }
