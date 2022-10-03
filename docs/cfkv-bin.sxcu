@@ -1,9 +1,13 @@
 ﻿{
   "Version": "14.0.1",
-  "Name": "bin",
+  "Name": "cfkv-bin",
   "DestinationType": "ImageUploader, TextUploader, FileUploader",
   "RequestMethod": "POST",
   "RequestURL": "bin.mchang.workers.dev/b",
+  "Headers": {
+    "File-Name": "{filename}"
+  },
   "Body": "Binary",
-  "URL": "https://bin.mchang.workers.dev/b/{response}"
+  "URL": "https://bin.mchang.workers.dev/b/{response}",
+  "DeletionURL": "https:/bin.mchang.workers.dev/b/{response}/delete"
 }

@@ -1,6 +1,6 @@
 // const
 const API_DOCS = {
-  'version': 0,
+  'version': 1,
   '/b/:binID': { 'methods': {
     'POST/PUT': {
       'description': 'Update contents of a bin',
@@ -12,6 +12,10 @@ const API_DOCS = {
       'description': 'Delete a bin',
       'response': 'Nothing (Status Code 200)'
     }}
+  },
+  'Headers': {
+    'Content-Type': 'Content type of the body',
+    'File-Name': 'Name of the file'
   },
   '/b/:binID/:method': "specify method in path instead",
   '/b': {
@@ -39,8 +43,8 @@ const MAX_EXPIRY = 86400 // 24hr
 const stdheaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+  'Access-Control-Allow-Headers': 'Content-Type, File-Name',
+  'Cache-Control': 'no-store',
   'Expires': '0',
   'Surrogate-Control': 'no-store'
 }

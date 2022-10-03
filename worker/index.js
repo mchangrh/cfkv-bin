@@ -8,8 +8,8 @@ const genID = (len = 5) => {
 const handleBin = async (request, pathname) => {
   let method = request.method.toLowerCase()
   if ((method === 'post' || method === 'put') && pathname === '/b') {
-    const {body, type} = await parseBody(request)
-    return await bin.create(body, type)
+    const {body, type, filename} = await parseBody(request)
+    return await bin.create(body, type, filename)
   }
   const pathSplit = pathname.split("/")
   const binName = pathSplit[2] ?? ''
@@ -21,8 +21,8 @@ const handleBin = async (request, pathname) => {
   else if (method === 'delete') return await bin.delete(binName)
   // update bin
   else if (method === 'post' || method === 'put') {
-    const {body, type} = await parseBody(request)
-    const err = await bin.set(binName, body)
+    const {body, type, filename} = await parseBody(request)
+    const err = await bin.set(binName, body, filename)
     return (err) ? bodyError(err) : textResponse(`set with type: ${type}`)
   } else return new Response('see /api', { status: 405 })
 }

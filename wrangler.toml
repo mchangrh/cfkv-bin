@@ -1,5 +1,6 @@
 name = "bin"
-type = "javascript"
+main = "dist/index.js"
+
 account_id = "d5ccf1d783709bbdc23fc29786f38736"
 workers_dev = true
 kv_namespaces = [
@@ -10,5 +11,3 @@ compatibility_date = "2022-03-22"
 
 [build]
 command = "npm run build"
-[build.upload]
-format = "service-worker"
