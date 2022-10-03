@@ -3,9 +3,14 @@
 
 ## Specifics
 - 24hr max TTL
+- 10MB max
 - assigned `binID` is randomly generated 5 character string
   - exclude commonly mistaken characters (`0oO1LlIi`...)
 - `Content-Type` sent is the `Content-Type` returned
+
+## Hosted
+- bin.mchang.workers.dev
+- [ShareX Config](docs/cfkv-bin.sxcu)
 
 ## API Docs (also at /api)
 ```json

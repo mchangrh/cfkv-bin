@@ -1,0 +1,9 @@
+﻿{
+  "Version": "14.0.1",
+  "Name": "bin",
+  "DestinationType": "ImageUploader, TextUploader, FileUploader",
+  "RequestMethod": "POST",
+  "RequestURL": "bin.mchang.workers.dev/b",
+  "Body": "Binary",
+  "URL": "https://bin.mchang.workers.dev/b/{response}"
+}

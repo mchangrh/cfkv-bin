@@ -32,7 +32,7 @@ const API_DOCS = {
   '/': 'github', '/ping': 'pong', '/upload': 'mchangrh.github.io/cfkv-bin', '/api': 'this',
 }
 const SYMBOLS = '23456789abcdefhjkprstxyzABCDEFGHJKMNPQRSTXYZ'
-const MAX_BIN_SIZE = 1000000 // 1MB
+const MAX_BIN_SIZE = 10000000 // 10MB
 const MAX_EXPIRY = 86400 // 24hr
 
 // response helpers
