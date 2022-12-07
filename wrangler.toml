@@ -4,10 +4,10 @@ main = "dist/index.js"
 account_id = "d5ccf1d783709bbdc23fc29786f38736"
 workers_dev = true
 kv_namespaces = [
-  { binding = "BIN_BIN", id="05129c34c7f84cfb8ad000432c8f4610" },
-  { binding = "URL_BIN", id="53a3fa54cb624860af9d366c8b09a8c7" }
+  { binding = "BIN_BIN", id="05129c34c7f84cfb8ad000432c8f4610", preview_id = "56f82065f4e44858ac186d518a562c63"},
+  { binding = "URL_BIN", id="53a3fa54cb624860af9d366c8b09a8c7", preview_id = "94863c5475674c9fa58815eabd45165a"}
 ]
-compatibility_date = "2022-03-22"
+compatibility_date = "2022-12-07"
 
 [build]
 command = "npm run build"

@@ -7,7 +7,7 @@ const urlGetValue = async (ID) => {
 
 const urlDeleteValue = async (ID) => {
   await URL_BIN.delete(ID)
-  return new Response(null, { status: 200 })
+  return new Response(null, { status: 204 })
 }
 
 const urlSetValue = async (ID, value) => {

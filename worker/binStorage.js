@@ -7,7 +7,7 @@ const binGetValue = async (ID) => {
 
 const binDeleteValue = async (ID) => {
   await BIN_BIN.delete(ID)
-  return new Response(null, { status: 200 })
+  return new Response(null, { status: 204 })
 }
 
 const binSetValue = async (ID, value, type, filename) => {

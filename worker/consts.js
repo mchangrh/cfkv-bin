@@ -46,5 +46,6 @@ const stdheaders = {
   'Access-Control-Allow-Headers': 'Content-Type, File-Name',
   'Cache-Control': 'no-store',
   'Expires': '0',
-  'Surrogate-Control': 'no-store'
+  'Surrogate-Control': 'no-store',
+  'X-Robots-Tag': 'noindex, nofollow, noarchive, nosnippet',
 }
