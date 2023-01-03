@@ -9,16 +9,16 @@
 - `Content-Type` sent is the `Content-Type` returned
 
 ## Hosted
-- bin.mchang.workers.dev
+- https://bin.mchang.workers.dev
 - [ShareX Config](docs/cfkv-bin.sxcu)
 
 ## API Docs (also at /api)
 ```json
 {
-  "version": 0,
+  "version": 1,
   "/b/:binID": {
     "methods": {
-      "POST": {
+      "POST/PUT": {
         "description": "Update contents of a bin",
         "response": "Nothing (Status Code 200)"
       },
@@ -28,14 +28,15 @@
       },
       "DELETE": {
         "description": "Delete a bin",
-        "response": "Nothing (Status Code 200)"  
+        "response": "Nothing (Status Code 200)"
       }
     }
   },
-  "/b/:binID/:method": {
-    "description": "Specify method in path instead",
-    "methods": "see /b/:binID methods"
+  "Headers": {
+    "Content-Type": "Content type of the body",
+    "File-Name": "Name of the file"
   },
+  "/b/:binID/:method": "specify method in path instead",
   "/b": {
     "methods": {
       "POST/PUT": {
@@ -48,15 +49,14 @@
     "description": "see /b/:binID",
   },
   "/u/:binID/:method": {
-    "description": "see /b/:binID/:method",
+    "description": "See /b/:binID/:method",
   },
   "/u": {
     "description": "See /b",
   },
   "/": "github",
-  "/ping":"pong",
-  "/version": "commit hash",
+  "/ping": "pong",
   "/upload": "mchangrh.github.io/cfkv-bin",
-  "/api": "this"
+  "/api": "this",
 }
 ```
