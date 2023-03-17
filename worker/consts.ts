@@ -15,11 +15,11 @@ export const API_DOCS = {
         "description": "Delete a bin",
         "response": "Nothing (Status Code 200)"
       }
-    }
-  },
-  "Headers": {
-    "Content-Type": "Content type of the body",
-    "File-Name": "Name of the file"
+    },
+    "Headers": {
+      "Content-Type": "Content type of the body",
+      "File-Name": "Name of the file"
+    },
   },
   "/b/:binID/:method": "specify method in path instead",
   "/b": {
@@ -30,6 +30,10 @@ export const API_DOCS = {
       }
     }
   },
+  "/c": {
+    "description": "Create a new bin with curl -T/ --upload-file syntax",
+    "response": "binID/filename.ext"
+  },
   "/u/:binID": {
     "description": "see /b/:binID",
   },
@@ -39,7 +43,7 @@ export const API_DOCS = {
   "/u": {
     "description": "See /b",
   },
-  "/": "github",
+  "/": "api",
   "/ping": "pong",
   "/upload": "mchangrh.github.io/cfkv-bin",
   "/api": "this",

@@ -1,2 +1,2 @@
 export type ID = string;
-export type binType = "bin" | "url"
+export type binType = 'bin' | 'url' | 'curl'

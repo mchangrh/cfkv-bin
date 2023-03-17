@@ -1,6 +1,6 @@
-import { genID, MAX_EXPIRY } from "./consts"
+import { genID, MAX_EXPIRY } from './consts'
 import { ID } from './types'
-import { bodyError, textResponse, urlRedirect } from "./responseHelpers"
+import { bodyError, textResponse, urlRedirect } from './responseHelpers'
 
 const urlGetValue = async (ID: ID) => { 
   const value = await URL_BIN.get(ID)
@@ -15,7 +15,7 @@ const urlDeleteValue = async (ID: ID) => {
 }
 
 const urlSetValue = async (ID: ID, value: string) => {
-  if (value.length === 0 ) return "empty body"
+  if (value.length === 0 ) return 'empty body'
   await URL_BIN.put(ID, value, { expirationTtl: MAX_EXPIRY })
   return false
 }

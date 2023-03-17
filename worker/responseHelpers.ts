@@ -3,11 +3,11 @@ import { stdheaders } from './consts'
 export const typeResponse = (obj: ArrayBuffer | string, type: string, filename: string) =>
   new Response(obj, { headers: {
     'Content-Type': type,
-    'Content-Disposition': `inline; filename = "${filename}"`,
+    'Content-Disposition': `inline; filename = '${filename}'`,
     ...stdheaders }
   })
 export const textResponse = (text: string) =>
-  typeResponse(text, "text/plain", "")
+  typeResponse(text, 'text/plain', '')
 export const bodyError = (msg: string) =>
   new Response(msg, { status: 400, headers: { ...stdheaders }})
 export const redirectResponse = (url: string) =>

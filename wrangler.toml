@@ -1,5 +1,5 @@
 name = "bin"
-main = "dist/index.js"
+main = "worker/index.ts"
 
 account_id = "d5ccf1d783709bbdc23fc29786f38736"
 workers_dev = true
