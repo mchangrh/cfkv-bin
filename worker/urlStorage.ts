@@ -20,12 +20,12 @@ const urlSetValue = async (ID: ID, value: string) => {
   return false
 }
 
-const urlCreateBin = async (body: string) => {
+const urlCreateBin = async (body: string, hostname?: string|null) => {
   let binID = genID() // get random ID
   const currentBin = await urlGetValue(binID) // check if bin is empty
   if (currentBin !== null) binID = genID()
   const err = await urlSetValue(binID, body) // put into bin
-  return (err) ? bodyError(err) : textResponse(binID)
+  return (err) ? bodyError(err) : textResponse(`${hostname}/u/${binID}\n`)
 }
 
 const url = {
