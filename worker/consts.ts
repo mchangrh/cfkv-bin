@@ -1,7 +1,7 @@
 // const
 export const API_DOCS = {
   "version": 1,
-  "/b/:binID": {
+  "/b/:binID/:?filename.ext/:?method": {
     "methods": {
       "POST/PUT": {
         "description": "Update contents of a bin",
@@ -14,14 +14,19 @@ export const API_DOCS = {
       "DELETE": {
         "description": "Delete a bin",
         "response": "Nothing (Status Code 200)"
+      },
+      "DOWNLOAD": {
+        "description": "Download a bin (only in path)",
+        "response": "Contents of bin (prompt download)"
       }
     },
     "Headers": {
       "Content-Type": "Content type of the body",
       "File-Name": "Name of the file"
     },
+    ":?filename.ext": "Name of the file (optional), can force filename in /download",
+    ":?method": "see methods"
   },
-  "/b/:binID/:method": "specify method in path instead",
   "/b": {
     "methods": {
       "POST/PUT": {
@@ -31,14 +36,15 @@ export const API_DOCS = {
     }
   },
   "/c": {
-    "description": "Create a new bin with curl -T/ --upload-file syntax",
-    "response": "https://host/:binID/:filename.ext"
+    "methods": {
+      "PUT": {
+        "description": "Create a new bin with curl -T/ --upload-file syntax",
+        "response": "https://host/:binID/:filename.ext"
+      }
+    },
   },
-  "/u/:binID": {
+  "/u/:binID/:?method": {
     "description": "see /b/:binID",
-  },
-  "/u/:binID/:method": {
-    "description": "See /b/:binID/:method",
   },
   "/u": {
     "description": "See /b",
