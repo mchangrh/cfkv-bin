@@ -1,5 +1,5 @@
 // const
-const API_DOCS = {
+export const API_DOCS = {
   "version": 1,
   "/b/:binID": {
     "methods": {
@@ -15,11 +15,11 @@ const API_DOCS = {
         "description": "Delete a bin",
         "response": "Nothing (Status Code 200)"
       }
-    }
-  },
-  "Headers": {
-    "Content-Type": "Content type of the body",
-    "File-Name": "Name of the file"
+    },
+    "Headers": {
+      "Content-Type": "Content type of the body",
+      "File-Name": "Name of the file"
+    },
   },
   "/b/:binID/:method": "specify method in path instead",
   "/b": {
@@ -30,6 +30,10 @@ const API_DOCS = {
       }
     }
   },
+  "/c": {
+    "description": "Create a new bin with curl -T/ --upload-file syntax",
+    "response": "binID/filename.ext"
+  },
   "/u/:binID": {
     "description": "see /b/:binID",
   },
@@ -39,22 +43,27 @@ const API_DOCS = {
   "/u": {
     "description": "See /b",
   },
-  "/": "github",
+  "/": "api",
   "/ping": "pong",
   "/upload": "mchangrh.github.io/cfkv-bin",
   "/api": "this",
 }
-const SYMBOLS = '23456789abcdefhjkprstxyzABCDEFGHJKMNPQRSTXYZ'
-const MAX_BIN_SIZE = 10000000 // 10MB
-const MAX_EXPIRY = 86400*3 // 3 days
+export const SYMBOLS = '23456789abcdefhjkprstxyzABCDEFGHJKMNPQRSTXYZ'
+export const MAX_BIN_SIZE = 10000000 // 10MB
+export const MAX_EXPIRY = 86400*3 // 3 days
+export const methods = ["get", "post", "put", "delete"]
 
 // response helpers
-const stdheaders = {
+export const stdheaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, File-Name",
-  "Cache-Control": "no-store",
-  "Expires": "0",
-  "Surrogate-Control": "no-store",
+  "Cache-Control": "no-store,max-age=0,no-cache,must-revalidate,proxy-revalidate",
   "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
+}
+
+export const genID = (len = 5) => {
+  let result = ''
+  for (let i = 0; i < len; i++) result += SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)]
+  return result
 }

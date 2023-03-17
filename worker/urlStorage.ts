@@ -1,23 +1,26 @@
-const urlGetValue = async (ID) => { 
+import { genID, MAX_EXPIRY } from './consts'
+import { ID } from './types'
+import { bodyError, textResponse, urlRedirect } from './responseHelpers'
+
+const urlGetValue = async (ID: ID) => { 
   const value = await URL_BIN.get(ID)
   return (value === null)
     ? new Response(null, { status: 404 })
     : urlRedirect(value)
 }
 
-const urlDeleteValue = async (ID) => {
+const urlDeleteValue = async (ID: ID) => {
   await URL_BIN.delete(ID)
   return new Response(null, { status: 204 })
 }
 
-const urlSetValue = async (ID, value) => {
-  const length = value.byteLength
-  if (length === 0 ) return "empty body"
+const urlSetValue = async (ID: ID, value: string) => {
+  if (value.length === 0 ) return 'empty body'
   await URL_BIN.put(ID, value, { expirationTtl: MAX_EXPIRY })
   return false
 }
 
-const urlCreateBin = async (body) => {
+const urlCreateBin = async (body: string) => {
   let binID = genID() // get random ID
   const currentBin = await urlGetValue(binID) // check if bin is empty
   if (currentBin !== null) binID = genID()
@@ -31,3 +34,5 @@ const url = {
   set: urlSetValue,
   create: urlCreateBin
 }
+
+export default url
