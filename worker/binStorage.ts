@@ -34,13 +34,13 @@ const binSetValue = async (ID: ID, value: any, contentType: contentType, filenam
   return false
 }
 
-const binCreateBin = async (body: any, contentType: contentType, filename?: filename, hostname?: string|null) => {
+const binCreateBin = async (body: any, contentType: contentType, filename?: filename): Promise<{ err: string|false, binID: string }> => {
   let binID = genID() // get random ID
   const currentBin = await binGetValue(binID) // check if bin is empty
   if (currentBin !== null) binID = genID()
   const err = await binSetValue(binID, body, contentType, filename) // put into bin
   if (filename) binID = binID + '/' + filename
-  return (err) ? bodyError(err) : textResponse(`https://${hostname}/b/${binID}\n`)
+  return { err, binID }
 }
 
 const bin = {

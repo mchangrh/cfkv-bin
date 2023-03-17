@@ -11,7 +11,12 @@ const handleBins = async (request: Request, pathname: string, type: binType) => 
   const binName = pathSplit[2] ?? ''
   // if type curl, 'bin name' is filename
   if (type == 'curl') {
-    if (method === 'put') return createBin(request, 'bin', binName)
+    if (method === 'put') {
+      const { hostname } = new URL(request.url)
+      const {body, contentType } = await parseBody(request)
+      const { err, binID } = await bin.create(body, contentType, binName)
+      return (err) ? bodyError(err) : textResponse(`https://${hostname}/b/${binID}\n`)
+    }
     else return new Response('this endpoint is meant for CURL, please see /api', { status: 405 })
   }
   // create bin
@@ -31,13 +36,13 @@ const handleBins = async (request: Request, pathname: string, type: binType) => 
 }
 
 const createBin = async (request: Request, type: binType, pathFilename?: string) => {
-  const { hostname } = new URL(request.url)
   if (type === 'bin') {
     const {body, contentType, filename} = await parseBody(request)
-    return await bin.create(body, contentType, filename ?? pathFilename, hostname)
+    const { err, binID } = await bin.create(body, contentType, filename ?? pathFilename)
+    return (err) ? bodyError(err) : textResponse(binID)
   } else {
     const body = await parseBodyText(request)
-    return await url.create(body, hostname)
+    return await url.create(body)
   }
 }
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <h3>Text Editor</h3>
+    ID: <input id="binid" value="">
+    <textarea id="text_body"></textarea>
+    <button onclick="update()">update</button>
+    <script>
+      const BINURL = "https://bin.mchang.xyz"
+      async function update() {
+        const postData = document.getElementById("text_body").value
+        await fetch(BINURL+"/b", {
+          method: "POST",
+          body: postData
+        }).then(resp => {
+          return resp.text()
+        }).then(binid => {
+          const link = `${BINURL}/b/${binid}`
+          document.getElementById("binid").href = link
+          document.getElementById("binid").innerHTML = link
+        })
+      }
+    </script>
+  </body>
+</html>

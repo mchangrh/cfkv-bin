@@ -48,7 +48,7 @@
   },
   "/c": {
     "description": "Create a new bin with curl -T/ --upload-file syntax",
-    "response": "binID/filename.ext"
+    "response": "https://host/:binID/:filename.ext"
   },
   "/u/:binID": {
     "description": "see /b/:binID",
@@ -59,9 +59,11 @@
   "/u": {
     "description": "See /b",
   },
-  "/": "api",
+  "/": "/api",
   "/ping": "pong",
   "/upload": "mchangrh.github.io/cfkv-bin",
+  "/version": "short git commit id",
+  "github": "https://github.com/mchangrh/cfkv-bin",
   "/api": "this",
 }
 ```
