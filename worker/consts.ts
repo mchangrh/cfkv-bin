@@ -46,8 +46,9 @@ export const API_DOCS = {
   "/": "/api",
   "/ping": "pong",
   "/upload": "mchangrh.github.io/cfkv-bin",
+  "/editor": "mchangrh.github.io/cfkv-bin/editor",
   "/version": "short git commit id",
-  "github": "https://github.com/mchangrh/cfkv-bin",
+  "/github": "https://github.com/mchangrh/cfkv-bin",
   "/api": "this",
 }
 export const SYMBOLS = '23456789abcdefhjkprstxyzABCDEFGHJKMNPQRSTXYZ'

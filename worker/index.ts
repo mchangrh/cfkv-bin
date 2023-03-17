@@ -76,6 +76,7 @@ const handleRequest = async (request: Request) => {
   else if (pathname === '/version') return textResponse(VERSION.substring(0,7))
   else if (pathname === '/github') return redirectResponse('https://github.com/mchangrh/cfkv-bin#readme')
   else if (pathname === '/upload') return redirectResponse('https://mchangrh.github.io/cfkv-bin/')
+  else if (pathname === '/editor') return redirectResponse('https://mchangrh.github.io/cfkv-bin/editor')
   else if (pathname === '/robots.txt') return textResponse('User-agent: *\nDisallow: /')
   else if (pathname === '/favicon.ico') return new Response(null, { status: 404 })
   // send type to handlers

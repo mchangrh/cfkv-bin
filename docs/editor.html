@@ -7,23 +7,46 @@
   </head>
   <body>
     <h3>Text Editor</h3>
-    ID: <input id="binid" value="">
+    <button onclick="load()">load</button><button onclick="update()">update</button> ID: <input id="binid" size="10"> <button onclick="genID()">generate</button> Version: <input type="number" id="version" value=0 style="width: 6ch">
     <textarea id="text_body"></textarea>
-    <button onclick="update()">update</button>
+    <div id="log"></div>
     <script>
       const BINURL = "https://bin.mchang.xyz"
       async function update() {
+        const binid = document.getElementById("binid").value
         const postData = document.getElementById("text_body").value
-        await fetch(BINURL+"/b", {
+        const versionElem = document.getElementById("version")
+        const version = Number.parseInt(versionElem.value) + 1
+        const log = document.getElementById("log")
+        await fetch(`${BINURL}/b/${binid}@${version}`, {
           method: "POST",
           body: postData
-        }).then(resp => {
-          return resp.text()
-        }).then(binid => {
-          const link = `${BINURL}/b/${binid}`
-          document.getElementById("binid").href = link
-          document.getElementById("binid").innerHTML = link
+        }).then(res => {
+          if (res.ok) {
+            log.innerHTML += `<br>Updated to version ${version}`
+            versionElem.value = version
+          } else {
+            log.innerHTML += `<br>Failed to update: ${res.status} ${res.statusText}`
+          }
         })
+      }
+      async function load() {
+        const binid = document.getElementById("binid").value
+        const versionElem = document.getElementById("version")
+        const version = Number.parseInt(versionElem.value)
+        const log = document.getElementById("log")
+        await fetch(`${BINURL}/b/${binid}@${version}`)
+        .then(resp => resp.text())
+        .then(text => {
+          document.getElementById("text_body").value = text
+          log.innerHTML += `<br>Loaded version ${version}`
+        })
+      }
+      function genID (len = 5) {
+        const SYMBOLS = '23456789abcdefhjkprstxyzABCDEFGHJKMNPQRSTXYZ'
+        let result = ''
+        for (let i = 0; i < len; i++) result += SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)]
+        document.getElementById("binid").value = result
       }
     </script>
   </body>
