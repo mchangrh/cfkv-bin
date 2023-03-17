@@ -40,7 +40,7 @@ const binCreateBin = async (body: any, contentType: contentType, filename?: file
   if (currentBin !== null) binID = genID()
   const err = await binSetValue(binID, body, contentType, filename) // put into bin
   if (filename) binID = binID + '/' + filename
-  return (err) ? bodyError(err) : textResponse(`${hostname}/b/${binID}\n`)
+  return (err) ? bodyError(err) : textResponse(`https://${hostname}/b/${binID}\n`)
 }
 
 const bin = {
