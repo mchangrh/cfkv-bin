@@ -1,23 +1,23 @@
+import { API_DOCS, stdheaders, methods } from './consts'
+import { parseBody, parseBodyText, typeResponse, textResponse, redirectResponse, bodyError } from './responseHelpers'
+import bin from './binStorage'
+import url from './urlStorage'
+import { binType, ID } from './types'
 
-const genID = (len = 5) => {
-  let result = ''
-  for (let i = 0; i < len; i++) result += SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)]
-  return result
-}
-
-const handleBins = async (request, pathname, type) => {
+const handleBins = async (request: Request, pathname: string, type: binType) => {
   const cfkv = (type === 'bin') ? bin : url
   let method = request.method.toLowerCase()
   const pathSplit = pathname.split("/")
   const binName = pathSplit[2] ?? ''
   // create bin
-  if (binName.binLength == 0) {
+  if (binName.length == 0) {
     if (method === 'post' || method === 'put') return createBin(request, type)
     else return new Response('see /api', { status: 405 })
   }
-  if (pathSplit[3] ?? '') method = pathSplit[3]
+  // set method from parameter
+  if (methods.includes(pathSplit[3])) method = pathSplit[3]
   // get bin
-  if (method === 'get') return await cfkv.get(binName)
+  if (method === 'get') return await cfkv.get(binName, pathSplit[3])
   // delete bin
   else if (method === 'delete') return await cfkv.delete(binName)
   // update bin
@@ -25,21 +25,21 @@ const handleBins = async (request, pathname, type) => {
   else return new Response('see /api', { status: 405 })
 }
 
-const createBin = async (request, type) => {
+const createBin = async (request: Request, type: binType) => {
   if (type === "bin") {
-    const {body, type, filename} = await parseBody(request)
-    return await bin.create(body, type, filename)
+    const {body, contentType, filename} = await parseBody(request)
+    return await bin.create(body, contentType, filename)
   } else {
     const body = await parseBodyText(request)
     return await url.create(body)
   }
 }
 
-const setBin = async (request, type, binName) => {
-  if (type === "bin") {
-    const { body, type, filename } = await parseBody(request)
-    const err = await bin.set(binName, body, filename)
-    return (err) ? bodyError(err) : textResponse(`set with type: ${type}`)
+const setBin = async (request: Request, contentType: string, binName: ID) => {
+  if (contentType === "bin") {
+    const { body, contentType, filename } = await parseBody(request)
+    const err = await bin.set(binName, body, contentType, filename)
+    return (err) ? bodyError(err) : textResponse(`set with contentType: ${contentType}`)
   } else {
     const body = await parseBodyText(request)
     const err = await url.set(binName, body)
@@ -48,7 +48,7 @@ const setBin = async (request, type, binName) => {
 }
 
 // Process all requests to the worker
-const handleRequest = async (request) => {
+const handleRequest = async (request: Request) => {
   const { pathname } = new URL(request.url)
   // handle type in path
   const type = pathname.startsWith('/u') ? 'url'
@@ -58,7 +58,7 @@ const handleRequest = async (request) => {
   if (request.method === 'OPTIONS') return new Response(null, { headers: { ...stdheaders }})
   // static endpoints
   else if (pathname === '/') return redirectResponse('https://github.com/mchangrh/cfkv-bin#readme')
-  else if (pathname === '/api') return typeResponse(JSON.stringify(API_DOCS, null, 4), 'application/json')
+  else if (pathname === '/api') return typeResponse(JSON.stringify(API_DOCS, null, 4), 'application/json', 'api.json')
   else if (pathname === '/ping') return textResponse('pong') 
   else if (pathname === '/version') return textResponse(VERSION.substring(0,7))
   else if (pathname === '/upload') return redirectResponse('https://mchangrh.github.io/cfkv-bin/')

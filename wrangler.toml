@@ -8,6 +8,3 @@ kv_namespaces = [
   { binding = "URL_BIN", id="53a3fa54cb624860af9d366c8b09a8c7", preview_id = "94863c5475674c9fa58815eabd45165a"}
 ]
 compatibility_date = "2022-12-07"
-
-[build]
-command = "npm run build"
