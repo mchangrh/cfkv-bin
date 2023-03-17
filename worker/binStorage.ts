@@ -1,6 +1,6 @@
 import { genID, MAX_BIN_SIZE, MAX_EXPIRY } from './consts'
 import { ID } from './types'
-import { typeResponse, bodyError, textResponse } from './responseHelpers'
+import { typeResponse } from './responseHelpers'
 
 type binMetadata = {
   type: string,
@@ -9,12 +9,12 @@ type binMetadata = {
 type contentType = string | null
 type filename = string | null | undefined
 
-const binGetValue = async (ID: ID, filename?: string) => {
+const binGetValue = async (ID: ID, filename?: string, download?: boolean) => {
   const { value, metadata } = await BIN_BIN.getWithMetadata(ID, { type: 'arrayBuffer' })
   const meta = metadata as binMetadata
   return (value === null)
     ? new Response(null, { status: 404 })
-    : typeResponse(value, meta.type, meta.filename ?? filename)
+    : typeResponse(value, meta.type, meta.filename ?? filename, download)
 }
 
 const binDeleteValue = async (ID: ID) => {
@@ -22,24 +22,27 @@ const binDeleteValue = async (ID: ID) => {
   return new Response(null, { status: 204 })
 }
 
-const binSetValue = async (ID: ID, value: any, contentType: contentType, filename: filename) => {
+const binSetValue = async (ID: ID, value: ArrayBuffer, contentType: contentType, filename: filename) => {
   const length = value.byteLength
   if (length === 0 ) return 'empty body'
   if (length >= MAX_BIN_SIZE) return 'body too large'
-  // if less than 1kb, store for max length, else store according to size, down to 1hr
-  const expirationTime = (length <= 1000)
+  // if less than 10k, store for max length, else store according to size, down to 1hr
+  const expirationTime = (length <= 10000)
     ? MAX_EXPIRY
     : Math.max(MAX_EXPIRY*(1-(length/MAX_BIN_SIZE)), 3600)
   await BIN_BIN.put(ID, value, { expirationTtl: expirationTime, metadata: { type: contentType, filename }})
   return false
 }
 
-const binCreateBin = async (body: any, contentType: contentType, filename?: filename): Promise<{ err: string|false, binID: string }> => {
+const binCreateBin = async (body: ArrayBuffer, contentType: contentType, filename?: filename): Promise<{ err: string|false, binID: string }> => {
   let binID = genID() // get random ID
-  const currentBin = await binGetValue(binID) // check if bin is empty
-  if (currentBin !== null) binID = genID()
+  let currentBin = await binGetValue(binID) // check if bin is empty
+  while (currentBin !== null) {
+    binID = genID()
+    currentBin = await binGetValue(binID)
+  }
   const err = await binSetValue(binID, body, contentType, filename) // put into bin
-  if (filename) binID = binID + '/' + filename
+  if (filename) binID = `${binID}/${filename}`
   return { err, binID }
 }
 

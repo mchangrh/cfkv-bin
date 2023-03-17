@@ -13,7 +13,7 @@ const handleBins = async (request: Request, pathname: string, type: binType) => 
   if (type == 'curl') {
     if (method === 'put') {
       const { hostname } = new URL(request.url)
-      const {body, contentType } = await parseBody(request)
+      const { body, contentType } = await parseBody(request)
       const { err, binID } = await bin.create(body, contentType, binName)
       return (err) ? bodyError(err) : textResponse(`https://${hostname}/b/${binID}\n`)
     }
@@ -25,9 +25,10 @@ const handleBins = async (request: Request, pathname: string, type: binType) => 
     else return new Response('see /api', { status: 405 })
   }
   // set method from parameter
-  if (methods.includes(pathSplit[3])) method = pathSplit[3]
+  const lastParam = pathSplit[pathSplit.length - 1]
+  if (methods.includes(lastParam)) method = lastParam
   // get bin
-  if (method === 'get') return await cfkv.get(binName, pathSplit[3])
+  if (method === 'get') return await cfkv.get(binName, pathSplit[3], lastParam == "download")
   // delete bin
   else if (method === 'delete') return await cfkv.delete(binName)
   // update bin
