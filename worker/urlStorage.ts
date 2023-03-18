@@ -5,13 +5,13 @@ import { bodyError, textResponse, urlRedirect } from './responseHelpers'
 const urlGetValue = async (ID: ID) => { 
   const value = await URL_BIN.get(ID)
   return (value === null)
-    ? new Response(null, { status: 404 })
+    ? new Response('not found', { status: 404 })
     : urlRedirect(value)
 }
 
 const urlDeleteValue = async (ID: ID) => {
   await URL_BIN.delete(ID)
-  return new Response(null, { status: 204 })
+  return new Response('deleted', { status: 204 })
 }
 
 const urlSetValue = async (ID: ID, value: string) => {

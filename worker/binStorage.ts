@@ -13,13 +13,13 @@ const binGetValue = async (ID: ID, filename?: string, download?: boolean) => {
   const { value, metadata } = await BIN_BIN.getWithMetadata(ID, { type: 'arrayBuffer' })
   const meta = metadata as binMetadata
   return (value === null)
-    ? new Response(null, { status: 404 })
+    ? new Response('not found', { status: 404 })
     : typeResponse(value, meta.type, meta.filename ?? filename, download)
 }
 
 const binDeleteValue = async (ID: ID) => {
   await BIN_BIN.delete(ID)
-  return new Response(null, { status: 204 })
+  return new Response('deleted', { status: 204 })
 }
 
 const binSetValue = async (ID: ID, value: ArrayBuffer, contentType?: contentType, filename?: filename) => {
