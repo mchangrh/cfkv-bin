@@ -1,5 +1,4 @@
 import { genID, MAX_BIN_SIZE, MAX_EXPIRY } from './consts'
-import { ID } from './types'
 import { typeResponse } from './responseHelpers'
 
 type binMetadata = {
@@ -9,7 +8,7 @@ type binMetadata = {
 type contentType = string | null
 type filename = string | null | undefined
 
-const binGetValue = async (ID: ID, filename?: string, download?: boolean) => {
+const binGetValue = async (ID: string, filename?: string, download?: boolean) => {
   const { value, metadata } = await BIN_BIN.getWithMetadata(ID, { type: 'arrayBuffer' })
   const meta = metadata as binMetadata
   return (value === null)
@@ -17,12 +16,12 @@ const binGetValue = async (ID: ID, filename?: string, download?: boolean) => {
     : typeResponse(value, meta.type, meta.filename ?? filename, download)
 }
 
-const binDeleteValue = async (ID: ID) => {
+const binDeleteValue = async (ID: string) => {
   await BIN_BIN.delete(ID)
   return new Response('deleted', { status: 204 })
 }
 
-const binSetValue = async (ID: ID, value: ArrayBuffer, contentType?: contentType, filename?: filename) => {
+const binSetValue = async (ID: string, value: ArrayBuffer, contentType?: contentType, filename?: filename) => {
   const length = value.byteLength
   if (length === 0 ) return 'empty body'
   if (length >= MAX_BIN_SIZE) return 'body too large'

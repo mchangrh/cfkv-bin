@@ -1,20 +1,19 @@
 import { genID, MAX_EXPIRY } from './consts'
-import { ID } from './types'
 import { bodyError, textResponse, urlRedirect } from './responseHelpers'
 
-const urlGetValue = async (ID: ID) => { 
+const urlGetValue = async (ID: string) => { 
   const value = await URL_BIN.get(ID)
   return (value === null)
     ? new Response('not found', { status: 404 })
     : urlRedirect(value)
 }
 
-const urlDeleteValue = async (ID: ID) => {
+const urlDeleteValue = async (ID: string) => {
   await URL_BIN.delete(ID)
   return new Response('deleted', { status: 204 })
 }
 
-const urlSetValue = async (ID: ID, value: string) => {
+const urlSetValue = async (ID: string, value: string) => {
   if (value.length === 0 ) return 'empty body'
   await URL_BIN.put(ID, value, { expirationTtl: MAX_EXPIRY })
   return false

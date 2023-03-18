@@ -2,7 +2,8 @@ import { API_DOCS, stdheaders, methods } from './consts'
 import { parseBody, parseBodyText, typeResponse, textResponse, redirectResponse, bodyError } from './responseHelpers'
 import bin from './binStorage'
 import url from './urlStorage'
-import { binType, ID } from './types'
+
+type binType = 'bin' | 'url' | 'curl'
 
 const handleBins = async (request: Request, pathname: string, type: binType) => {
   const cfkv = (type === 'url') ? url : bin
@@ -47,7 +48,7 @@ const createBin = async (request: Request, type: binType, pathFilename?: string)
   }
 }
 
-const setBin = async (request: Request, contentType: string, binName: ID, pathFileName?: string) => {
+const setBin = async (request: Request, contentType: string, binName: string, pathFileName?: string) => {
   if (contentType === 'bin') {
     const { body, contentType, filename } = await parseBody(request)
     const err = await bin.set(binName, body, contentType, filename ?? pathFileName)
