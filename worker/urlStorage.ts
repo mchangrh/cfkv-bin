@@ -22,11 +22,8 @@ const urlSetValue = async (ID: ID, value: string) => {
 
 const urlCreateBin = async (body: string) => {
   let binID = genID() // get random ID
-  let currentBin = await urlGetValue(binID) // check if bin is empty
-  while (currentBin !== null) {
-    binID = genID()
-    currentBin = await urlGetValue(binID)
-  }
+  const currentBin = await urlGetValue(binID) // check if bin is empty
+  if (currentBin !== null) binID = genID()
   const err = await urlSetValue(binID, body) // put into bin
   return (err) ? bodyError(err) : textResponse(binID)
 }

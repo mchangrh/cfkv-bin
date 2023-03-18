@@ -22,7 +22,7 @@ const binDeleteValue = async (ID: ID) => {
   return new Response(null, { status: 204 })
 }
 
-const binSetValue = async (ID: ID, value: ArrayBuffer, contentType: contentType, filename: filename) => {
+const binSetValue = async (ID: ID, value: ArrayBuffer, contentType?: contentType, filename?: filename) => {
   const length = value.byteLength
   if (length === 0 ) return 'empty body'
   if (length >= MAX_BIN_SIZE) return 'body too large'
@@ -36,11 +36,8 @@ const binSetValue = async (ID: ID, value: ArrayBuffer, contentType: contentType,
 
 const binCreateBin = async (body: ArrayBuffer, contentType: contentType, filename?: filename): Promise<{ err: string|false, binID: string }> => {
   let binID = genID() // get random ID
-  let currentBin = await binGetValue(binID) // check if bin is empty
-  while (currentBin !== null) {
-    binID = genID()
-    currentBin = await binGetValue(binID)
-  }
+  const currentBin = await binGetValue(binID) // check if bin is empty
+  if (currentBin !== null) binID = genID()
   const err = await binSetValue(binID, body, contentType, filename) // put into bin
   if (filename) binID = `${binID}/${filename}`
   return { err, binID }
