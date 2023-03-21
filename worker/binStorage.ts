@@ -18,7 +18,7 @@ const binGetValue = async (ID: string, filename?: string, download?: boolean) =>
 
 const binDeleteValue = async (ID: string) => {
   await BIN_BIN.delete(ID)
-  return new Response('deleted', { status: 204 })
+  return new Response('deleted', { status: 200 })
 }
 
 const binSetValue = async (ID: string, value: ArrayBuffer, contentType?: contentType, filename?: filename) => {
