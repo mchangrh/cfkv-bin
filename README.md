@@ -22,6 +22,7 @@
     "methods": {
       "POST/PUT": {
         "description": "Update contents of a bin",
+        "request": "File in body as binary",
         "response": "Nothing (Status Code 200)"
       },
       "GET": {
@@ -48,6 +49,7 @@
     "methods": {
       "POST/PUT": {
         "description": "Create a new bin",
+        "request": "File in body as binary",
         "response": "binID"
       }
     }
@@ -64,7 +66,13 @@
     "description": "see /b/:binID",
   },
   "/u": {
-    "description": "See /b",
+    "methods": {
+      "POST/PUT": {
+        "description": "Create a new bin",
+        "request": "url body as raw text or searchParam url",
+        "response": "binID"
+      }
+    }
   },
   "/": "/api",
   "/ping": "pong",

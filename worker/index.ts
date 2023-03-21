@@ -42,8 +42,10 @@ const createBin = async (request: Request, type: binType, pathFilename?: string)
     const {body, contentType, filename} = await parseBody(request)
     const { err, binID } = await bin.create(body, contentType, filename ?? pathFilename)
     return (err) ? bodyError(err) : textResponse(binID)
-  } else {
-    const body = await parseBodyText(request)
+  } else { // url bin
+    const { searchParams } = new URL(request.url)
+    const body = await parseBodyText(request) || searchParams.get('url') || ''
+    if (body.length === 0) return bodyError('empty body')
     return await url.create(body)
   }
 }
