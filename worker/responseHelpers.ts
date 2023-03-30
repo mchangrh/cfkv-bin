@@ -3,7 +3,7 @@ import { stdheaders } from './consts'
 export const typeResponse = (obj: ArrayBuffer | string, type: string, filename: string, download?: boolean) =>
   new Response(obj, { headers: {
     'Content-Type': type,
-    'Content-Disposition': `${download ? "attachment" : "inline"}; filename='${filename}'`,
+    'Content-Disposition': `${download ? "attachment" : "inline"}; filename="${filename}"`,
     ...stdheaders }
   })
 export const textResponse = (text: string) => typeResponse(text, 'text/plain', '')
