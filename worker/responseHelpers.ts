@@ -15,7 +15,8 @@ export const parseBody = async(request: Request) => { // parse body
   return ({
     body: await request.arrayBuffer(),
     contentType: request.headers.get('Content-Type'),
-    filename: request.headers.get('File-Name')
+    filename: request.headers.get('File-Name'),
+    expiry: request.headers.get('Expiry')
   })
 }
 

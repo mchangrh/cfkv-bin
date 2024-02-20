@@ -21,23 +21,24 @@ const binDeleteValue = async (ID: string) => {
   return new Response('deleted', { status: 200 })
 }
 
-const binSetValue = async (ID: string, value: ArrayBuffer, contentType?: contentType, filename?: filename) => {
+const binSetValue = async (ID: string, value: ArrayBuffer, contentType?: contentType, filename?: filename, expiry?: string|null) => {
   const length = value.byteLength
   if (length === 0 ) return 'empty body'
   if (length >= MAX_BIN_SIZE) return 'body too large'
   // if less than 10k, store for max length, else store according to size, down to 1hr
-  const expirationTime = (length <= 10000)
+  const sizeExpiry = (length <= 10000)
     ? MAX_EXPIRY
     : Math.max(MAX_EXPIRY*(1-(length/MAX_BIN_SIZE)), 3600)
+  const expirationTime = expiry ? Math.min(sizeExpiry, parseInt(expiry)) : sizeExpiry
   await BIN_BIN.put(ID, value, { expirationTtl: expirationTime, metadata: { type: contentType, filename }})
   return false
 }
 
-const binCreateBin = async (body: ArrayBuffer, contentType: contentType, filename?: filename): Promise<{ err: string|false, binID: string }> => {
+const binCreateBin = async (body: ArrayBuffer, contentType: contentType, filename?: filename, expiry?: string|null): Promise<{ err: string|false, binID: string }> => {
   let binID = genID() // get random ID
   const currentBin = await binGetValue(binID) // check if bin is empty
   if (currentBin !== null) binID = genID()
-  const err = await binSetValue(binID, body, contentType, filename) // put into bin
+  const err = await binSetValue(binID, body, contentType, filename, expiry) // put into bin
   if (filename) binID = `${binID}/${filename}`
   return { err, binID }
 }

@@ -39,8 +39,8 @@ const handleBins = async (request: Request, pathname: string, type: binType) => 
 
 const createBin = async (request: Request, type: binType, pathFilename?: string) => {
   if (type === 'bin') {
-    const {body, contentType, filename} = await parseBody(request)
-    const { err, binID } = await bin.create(body, contentType, filename ?? pathFilename)
+    const {body, contentType, filename, expiry} = await parseBody(request)
+    const { err, binID } = await bin.create(body, contentType, filename ?? pathFilename, expiry)
     return (err) ? bodyError(err) : textResponse(binID)
   } else { // url bin
     const { searchParams } = new URL(request.url)

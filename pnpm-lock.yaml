@@ -1,20 +1,20 @@
-lockfileVersion: 5.4
-
-specifiers:
-  '@cloudflare/workers-types': ^4.20230307.0
-  typescript: ^5.0.2
+lockfileVersion: '6.0'
 
 devDependencies:
-  '@cloudflare/workers-types': 4.20230307.0
-  typescript: 5.0.2
+  '@cloudflare/workers-types':
+    specifier: ^4.20230307.0
+    version: 4.20230307.0
+  typescript:
+    specifier: ^5.0.2
+    version: 5.0.2
 
 packages:
 
-  /@cloudflare/workers-types/4.20230307.0:
+  /@cloudflare/workers-types@4.20230307.0:
     resolution: {integrity: sha512-Go968aDDcqONHQcUdgIiPRkPdT4QTzD0ecHJsI1u7ZiHPMOoZn+Dy7hYsdUJ5ldX9wTZDrICBM1rDKTRaDUitg==}
     dev: true
 
-  /typescript/5.0.2:
+  /typescript@5.0.2:
     resolution: {integrity: sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==}
     engines: {node: '>=12.20'}
     hasBin: true
