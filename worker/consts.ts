@@ -66,7 +66,7 @@ export const API_DOCS = {
   "/api": "this",
 }
 export const SYMBOLS = '23456789abcdefhjkprstxyzABCDEFGHJKMNPQRSTXYZ'
-export const MAX_BIN_SIZE = 10000000 // 10MB
+export const MAX_BIN_SIZE = 250000000 // 25MB
 export const MAX_EXPIRY = 86400*3 // 3 days
 export const methods = ["get", "post", "put", "delete"]
 
@@ -74,7 +74,7 @@ export const methods = ["get", "post", "put", "delete"]
 export const stdheaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, File-Name",
+  "Access-Control-Allow-Headers": "Content-Type, File-Name, X-Requested-With",
   "Cache-Control": "no-store,max-age=0,no-cache,must-revalidate,proxy-revalidate",
   "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
 }

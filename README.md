@@ -3,7 +3,7 @@
 
 ## Specifics
 - 3 * 24hr max TTL
-- 10MB max
+- 25MB max
 - assigned `binID` is randomly generated 5 character string
   - exclude commonly mistaken characters (`0oO1LlIi`...)
 - `Content-Type` sent is the `Content-Type` returned
@@ -12,7 +12,7 @@
 ## Hosted
 - https://bin.mchang.workers.dev
 - [ShareX Config](docs/cfkv-bin.sxcu)
-- `curl --upload-file ./filename.txt https://bin.mchang.workers.dev/c`
+- `curl --upload-file ./filename.txt https://bin.mchang.workers.dev/c/`
 
 ## API Docs (also at /api)
 ```json
