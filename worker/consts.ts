@@ -61,6 +61,7 @@ export const API_DOCS = {
   "/ping": "pong",
   "/upload": "mchangrh.github.io/cfkv-bin",
   "/editor": "mchangrh.github.io/cfkv-bin/editor",
+  "/drop": "mchangrh.github.io/cfkv-bin/drop",
   "/version": "short git commit id",
   "/github": "https://github.com/mchangrh/cfkv-bin",
   "/api": "this",
@@ -74,7 +75,7 @@ export const methods = ["get", "post", "put", "delete"]
 export const stdheaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, File-Name, X-Requested-With",
+  "Access-Control-Allow-Headers": "Content-Type, File-Name",
   "Cache-Control": "no-store,max-age=0,no-cache,must-revalidate,proxy-revalidate",
   "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
 }

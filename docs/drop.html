@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="center" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+      <h3>File Drop</h3>
+      <label for="select-file">Click to browse</label>
+      <input
+        type="file"
+        id="select-file"
+        onchange="chooseHandler(event)"
+      >
+      <ul id="filelist">Uploaded Files:</ul>
+    </div>
+    <script src="upload.js"></script>
+  </body>
+</html>

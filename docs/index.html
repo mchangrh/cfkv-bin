@@ -6,46 +6,24 @@
     </style>
   </head>
   <body>
-    <h3>Text Upload</h3>
+    <h3>Upload</h3>
     Content-Type: <input id="content_type" value="text/plain">
-    <textarea id="upload_body"></textarea>
-    <button onclick="upload()">Upload</button>
+    <textarea id="upload_body"
+      placeholder="Drop Files Here"
+      ondrop="dropHandler(event)"
+      ondragover="dragOverHandler(event)"></textarea>
+    <label for="select-file">Choose File</label>
+    <input
+      type="file"
+      id="select-file"
+      onchange="chooseHandler(event)"
+    >
+    <button onclick="uploadText()">Upload</button>
     <h3>URL Redirect</h3>
     Destination: <input id="dest" placeholder="https://google.com">
     <br>
-    <button onclick="url()">Set Redirect</button>
-    <h3>Result</h3>
-    Result Link: <a id="binlink">null</a>
-    <script>
-      const BINURL = "https://bin.mchang.xyz"
-      async function upload() {
-        const postData = document.getElementById("upload_body").value
-        const contentType = document.getElementById("content_type").value
-        await fetch(BINURL+"/b", {
-          method: "POST",
-          body: postData,
-          headers: { "Content-Type": contentType }
-        }).then(resp => {
-          return resp.text()
-        }).then(binid => {
-          const link = `${BINURL}/b/${binid}`
-          document.getElementById("binlink").href = link
-          document.getElementById("binlink").innerHTML = link
-        })
-      }
-      async function url() {
-        const dest = document.getElementById("dest").value
-        await fetch(`${BINURL}/u`, {
-          method: "POST",
-          body: dest,
-        }).then(resp => {
-          return (resp.status == 200) ? resp.text() : "error" 
-        }).then(binid => {
-          const link = `${BINURL}/u/${binid}`
-          document.getElementById("binlink").href = link
-          document.getElementById("binlink").innerHTML = link
-        })
-      }
-    </script>
+    <button onclick="setUrl()">Set Redirect</button>
+    <ul id="filelist"><h3>Uploaded:</h3></ul>
+    <script src="upload.js"></script>
   </body>
 </html>

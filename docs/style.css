@@ -16,3 +16,25 @@ input, button, textarea {
 a, body {
   color: #ddd;
 }
+ul {
+  padding: 0;
+  display: none;
+}
+ul:has(>a) {
+  display: flex;
+  flex-direction: column;
+}
+input[type="file"] {
+  display: none;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 98vh
+}
+label {
+  cursor: pointer;
+  text-decoration: underline;
+}
