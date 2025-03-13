@@ -12,7 +12,10 @@ const upload = (body, contentType, fileName, binType = "b") =>
   fetch(`${BINURL}/${binType}`, {
     method: "POST", headers: { "Content-Type": contentType, "File-Name": fileName }, body
   })
-    .then(async (res) => addFile(`${BINURL}/${binType}/${await res.text()}`, fileName))
+    .then(async (res) => {
+      const binName = await res.text()
+      addFile(`${BINURL}/${binType}/${binName}`, binName)
+    })
     .catch((err) => console.error(err))
 const uploadText = () => upload(document.getElementById("upload_body").value, "text/plain", "text.txt")
 const setUrl = () => upload(document.getElementById("dest").value, "", "", "u")
